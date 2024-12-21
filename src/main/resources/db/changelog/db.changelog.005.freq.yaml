@@ -1,0 +1,62 @@
+databaseChangeLog:
+  - changeSet:
+      id: "1.1.005"
+      author: suntsovto
+      changes:
+        - createTable:
+            tableName: ddn_word_freq
+            remarks: количество слов в периоде - день\месяц\год
+            columns:
+              - column:
+                  name: word_freq_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: word_freq_id_pkey
+              - column:
+                  name: word_id
+                  type: BIGINT
+                  remarks: ссылка на слово из словаря
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_word_freq_to_word
+                    references: ddn_word(word_id)
+              - column:
+                  name: rss_date
+                  type: DATE
+                  remarks: дата или первый день периода
+                  constraints:
+                    nullable: false
+              - column:
+                  name: period_type
+                  type: INTEGER
+                  remarks: тип периода. 0 - день, 1 - месяц, 2 - год
+                  constraints:
+                    nullable: false
+              - column:
+                  name: word_count
+                  type: INTEGER
+                  remarks: количество слов в этом периоде
+        - createIndex:
+            tableName: ddn_word_freq
+            indexName: ddn_word_freq_idx_date_count
+            columns:
+              - column:
+                  name: rss_date
+              - column:
+                  name: period_type
+              - column:
+                  name: word_count
+        - createIndex:
+            tableName: ddn_word_freq
+            indexName: ddn_word_freq_idx_word_id
+            unique: true
+            columns:
+              - column:
+                  name: word_id
+              - column:
+                  name: rss_date
+              - column:
+                  name: period_type

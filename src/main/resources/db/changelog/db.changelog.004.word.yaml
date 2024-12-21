@@ -1,0 +1,66 @@
+databaseChangeLog:
+  - changeSet:
+      id: "1.1.004"
+      author: suntsovto
+      changes:
+        - createTable:
+            tableName: ddn_word
+            remarks: слова в нормальной форме
+            columns:
+              - column:
+                  name: word_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: word_id_pkey
+              - column:
+                  name: word
+                  type: VARCHAR(100)
+                  remarks: слово в нормальной форме
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: word_unique
+        - createTable:
+            tableName: ddn_new_word
+            remarks: привязка слов к новостям
+            columns:
+              - column:
+                  name: new_id
+                  type: BIGINT
+                  remarks: ссылка на новость
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_new_word_to_new
+                    references: ddn_new(new_id)
+              - column:
+                  name: word_id
+                  type: BIGINT
+                  remarks: ссылка на слово из словаря
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_new_word_to_word
+                    references: ddn_word(word_id)
+        - createIndex:
+            tableName: ddn_new_word
+            indexName: ddn_new_word_idx_new_word_unique
+            primaryKey: true
+            columns:
+              - column:
+                  name: new_id
+              - column:
+                  name: word_id
+            unique: true
+  - changeSet:
+      id: "1.1.004.1"
+      author: suntsovto
+      changes:
+        - addPrimaryKey:
+            tableName: ddn_new_word
+            columnNames: new_id, word_id
+            constraintName: ddn_new_word_pk
+        - dropIndex:
+            tableName: ddn_new_word
+            indexName: ddn_new_word_idx_new_word_unique

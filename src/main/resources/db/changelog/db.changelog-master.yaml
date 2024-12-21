@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/db.changelog.001.task.yaml
+  - include:
+      file: db/changelog/sql/rss_source.sql
+  - include:
+      file: db/changelog/db.changelog.002.new.yaml
+  - include:
+      file: db/changelog/db.changelog.003.constraint.yaml
+  - include:
+      file: db/changelog/db.changelog.004.word.yaml
+  - include:
+      file: db/changelog/db.changelog.005.freq.yaml
+  - include:
+      file: db/changelog/db.changelog.006.metric.yaml

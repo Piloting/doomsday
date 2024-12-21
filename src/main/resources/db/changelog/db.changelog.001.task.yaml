@@ -1,0 +1,91 @@
+databaseChangeLog:
+  - changeSet:
+      id: "1.1.001"
+      author: suntsovto
+      changes:
+        - createTable:
+            tableName: ddn_rss_source
+            remarks: источники новостей
+            columns:
+              - column:
+                  name: rss_source_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: rss_source_id_pkey
+              - column:
+                  name: url
+                  type: VARCHAR(500)
+                  remarks: ссылка на RSS
+                  constraints:
+                    unique: true
+                    nullable: false
+                    uniqueConstraintName: rss_source_url_unique
+              - column:
+                  name: source_name
+                  type: VARCHAR(500)
+                  remarks: название источника
+                  constraints:
+                    nullable: false
+              - column:
+                  name: source_enabled
+                  type: BOOLEAN
+                  remarks: вкл\выкл источник
+                  constraints:
+                    nullable: false
+        
+        - createTable:
+            tableName: ddn_task
+            remarks: Задание на загрузку RSS
+            columns:
+              - column:
+                  name: task_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: task_pkey
+              - column:
+                  name: rss_date
+                  type: DATE
+                  remarks: дата              
+                  constraints:
+                    nullable: false
+              - column:
+                  name: rss_source_id
+                  type: BIGINT
+                  remarks: ID источника
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_rss_source_id
+                    references: ddn_rss_source(rss_source_id)
+              - column:
+                  name: create_date
+                  type: DATETIME
+                  remarks: дата создания
+                  constraints:
+                    nullable: false
+              - column:
+                  name: load_state
+                  type: integer
+                  remarks: Статус загрузки 0 NEW, 1 SUCCESS, 2 ERROR
+                  constraints:
+                    nullable: false
+        - createIndex:
+            tableName: ddn_task
+            indexName: ddn_task_is_load_state_idx
+            columns:
+              - column:
+                  name: load_state
+        - createIndex:
+            tableName: ddn_task
+            indexName: ddn_task_unique_idx
+            unique: true
+            columns:
+              - column:
+                  name: rss_source_id
+              - column:
+                  name: rss_date

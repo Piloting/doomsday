@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: "1.1.003"
+      author: suntsovto
+      changes:
+        - addNotNullConstraint:
+            tableName: ddn_new
+            columnName: guid
+            constraintName: guid_not_null
+        - addNotNullConstraint:
+            tableName: ddn_new
+            columnName: new_date
+            constraintName: new_date_not_null
+        - addNotNullConstraint:
+            tableName: ddn_new
+            columnName: title
+            constraintName: title_not_null
+        - addNotNullConstraint:
+            tableName: ddn_new
+            columnName: link
+            constraintName: link_not_null
+        - addNotNullConstraint:
+            tableName: ddn_new
+            columnName: rss_source_id
+            constraintName: rss_source_id_not_null
+        - addForeignKeyConstraint:
+            baseTableName: ddn_new
+            baseColumnNames: rss_source_id
+            constraintName: new_to_source
+            referencedTableName: ddn_rss_source
+            referencedColumnNames: rss_source_id

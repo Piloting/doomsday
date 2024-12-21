@@ -1,0 +1,54 @@
+databaseChangeLog:
+  - changeSet:
+      id: "1.1.006"
+      author: suntsovto
+      changes:
+        - createTable:
+            tableName: ddn_metric_value
+            remarks: рассчитанные значения метрик
+            columns:
+              - column:
+                  name: metric_value_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: metric_value_pkey
+              - column:
+                  name: metric
+                  type: INTEGER
+                  remarks: id метрики (enum Metric)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: period_type
+                  type: INTEGER
+                  remarks: тип периода. 0 - день, 1 - месяц, 2 - год (enum PeriodType)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: rss_date
+                  type: DATE
+                  remarks: дата или первый день периода
+                  constraints:
+                    nullable: false
+              - column:
+                  name: value_str
+                  type: VARCHAR(1000)
+                  remarks: текстовое значение метрики
+              - column:
+                  name: value_num
+                  type: NUMERIC
+                  remarks: числовое значение метрики
+        - createIndex:
+            tableName: ddn_metric_value
+            indexName: ddn_metric_value_idx_unique
+            unique: true
+            columns:
+              - column:
+                  name: metric
+              - column:
+                  name: period_type
+              - column:
+                  name: rss_date

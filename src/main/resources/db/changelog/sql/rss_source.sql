@@ -1,0 +1,9 @@
+insert into public.ddn_rss_source (rss_source_id, url, source_name, source_enabled) values (1000, 'https://lenta.ru/rss', 'lenta', true);
+insert into public.ddn_rss_source (rss_source_id, url, source_name, source_enabled) values (1001, 'https://ria.ru/export/rss2/archive/index.xml', 'ria', true);
+insert into public.ddn_rss_source (rss_source_id, url, source_name, source_enabled) values (1002, 'https://www.interfax.ru/rss.asp', 'interfax', true);
+insert into public.ddn_rss_source (rss_source_id, url, source_name, source_enabled) values (1003, 'https://iz.ru/xml/rss/all.xml', 'iz', true);
+insert into public.ddn_rss_source (rss_source_id, url, source_name, source_enabled) values (1004, 'https://www.aif.ru/rss/all.php', 'aif', true);
+insert into public.ddn_rss_source (rss_source_id, url, source_name, source_enabled) values (1005, 'https://rssexport.rbc.ru/rbcnews/news/30/full.rss', 'rbc', true);
+insert into public.ddn_rss_source (rss_source_id, url, source_name, source_enabled) values (1006, 'https://www.kommersant.ru/RSS/news.xml', 'kommersant', true);
+insert into public.ddn_rss_source (rss_source_id, url, source_name, source_enabled) values (1007, 'https://russian.rt.com/rss', 'rt', true);
+insert into public.ddn_rss_source (rss_source_id, url, source_name, source_enabled) values (1008, 'https://tass.ru/rss/v2.xml', 'tass', true);

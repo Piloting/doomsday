@@ -1,0 +1,45 @@
+databaseChangeLog:
+  - changeSet:
+      id: "1.1.002"
+      author: suntsovto
+      changes:
+        - createTable:
+            tableName: ddn_new
+            columns:
+              - column:
+                  name: new_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: news_id_pkey
+              - column:
+                  name: new_date
+                  type: DATETIME
+                  remarks: дата со временем новости
+              - column:
+                  name: title
+                  type: VARCHAR(1000)
+                  remarks: заголовок новости
+              - column:
+                  name: link
+                  type: VARCHAR(1000)
+                  remarks: перманентная ссылка на новость
+              - column:
+                  name: guid
+                  type: VARCHAR(1000)
+                  remarks: уникальный id новости
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: news_guid_unique
+              - column:
+                  name: rss_source_id
+                  type: BIGINT
+                  remarks: ссылка на источник
+        - createIndex:
+            tableName: ddn_new
+            indexName: ddn_new_idx_date
+            columns:
+              - column:
+                  name: new_date
